@@ -1,6 +1,5 @@
 <view class="container">
   <view class="header">
-    <image class="logo" src="/images/logo.png" mode="aspectFit"></image>
     <text class="title">新年祝福生成器</text>
   </view>
 
@@ -24,6 +23,7 @@
         data-id="{{item.id}}"
       >
         <image src="{{item.url}}" mode="aspectFill"></image>
+        <view class="background-name">{{item.name}}</view>
       </view>
     </scroll-view>
   </view>

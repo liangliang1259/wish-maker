@@ -1,6 +1,7 @@
 const KIMI_API_ENDPOINT = 'https://api.moonshot.cn/v1/chat/completions'
+const KIMI_API_KEY = 'sk-Nbj0hq8vd2QbsfqnGocp2OurXTmRGu8uWCHVbJh8TTypV23b'
 
-function generateWish(keywords) {
+const generateWish = function(keywords) {
   return new Promise((resolve, reject) => {
     const prompt = `请根据关键词"${keywords}"生成一段新年祝福语，要求：
     1. 字数在50-100字之间
@@ -14,7 +15,7 @@ function generateWish(keywords) {
       method: 'POST',
       header: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${wx.getStorageSync('kimiApiKey')}`
+        'Authorization': `Bearer ${KIMI_API_KEY}`
       },
       data: {
         model: 'moonshot-v1-8k',
@@ -37,4 +38,8 @@ function generateWish(keywords) {
       }
     })
   })
+}
+
+module.exports = {
+  generateWish: generateWish
 }

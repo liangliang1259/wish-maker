@@ -1,53 +1,66 @@
-const { generateWish } = require('../../utils/kimi.js')
+const app = getApp()
+const kimi = require('../../utils/kimi.js')
 
 Page({
   data: {
     keywords: '',
-    bgId: null,
     wishText: '',
     generating: false,
-    error: ''
+    error: null,
+    background: null
   },
 
-  onLoad(options) {
-    if (options.keywords && options.bgId) {
-      this.setData({
-        keywords: options.keywords,
-        bgId: parseInt(options.bgId)
+  onLoad() {
+    const eventChannel = this.getOpenerEventChannel()
+    eventChannel.on('acceptDataFromOpenerPage', (data) => {
+      const { keywords, backgroundId } = data
+      this.setData({ 
+        keywords,
+        background: app.globalData.backgrounds.find(bg => bg.id === backgroundId)
       })
-      this.generateWishText()
-    }
+      this.generateWish()
+    })
   },
 
-  async generateWishText() {
-    this.setData({ 
+  async generateWish() {
+    if (this.data.generating) return
+    
+    this.setData({
       generating: true,
-      error: ''
+      error: null
     })
 
     try {
-      const wishText = await generateWish(this.data.keywords)
-      this.setData({ 
+      const wishText = await kimi.generateWish(this.data.keywords)
+      this.setData({
         wishText,
         generating: false
       })
-    } catch (err) {
+    } catch (error) {
+      console.error('Generate wish error:', error)
       this.setData({
-        generating: false,
-        error: err.message || '生成失败，请重试'
+        error: '生成祝福语时出错，请重试',
+        generating: false
       })
     }
   },
 
   regenerate() {
-    this.generateWishText()
+    this.generateWish()
   },
 
   preview() {
-    if (!this.data.wishText) return
+    // 跳转到预览页面
+    const params = {
+      text: this.data.wishText,
+      backgroundId: this.data.background.id
+    }
     
     wx.navigateTo({
-      url: `/pages/preview/preview?text=${encodeURIComponent(this.data.wishText)}&bgId=${this.data.bgId}`
+      url: '/pages/preview/preview',
+      success: (res) => {
+        res.eventChannel.emit('acceptDataFromOpenerPage', params)
+      }
     })
   }
 })
