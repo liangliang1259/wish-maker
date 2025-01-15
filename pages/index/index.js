@@ -37,17 +37,14 @@ Page({
       return
     }
 
-    // 使用 wx.navigateTo 的 success 回调来传递完整的数据
     const params = {
       keywords: this.data.keywords,
       backgroundId: this.data.selectedBackground.id
     }
     
+    // 使用 URL 参数传递数据
     wx.navigateTo({
-      url: '/pages/generate/generate',
-      success: (res) => {
-        res.eventChannel.emit('acceptDataFromOpenerPage', params)
-      }
+      url: `/pages/generate/generate?keywords=${encodeURIComponent(params.keywords)}&backgroundId=${params.backgroundId}`
     })
   }
 })

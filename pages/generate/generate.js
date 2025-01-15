@@ -10,16 +10,29 @@ Page({
     background: null
   },
 
-  onLoad() {
-    const eventChannel = this.getOpenerEventChannel()
-    eventChannel.on('acceptDataFromOpenerPage', (data) => {
-      const { keywords, backgroundId } = data
+  onLoad(options) {
+    try {
+      const { keywords, backgroundId } = options || {}
+      if (!keywords || !backgroundId) {
+        throw new Error('缺少必要参数')
+      }
+
       this.setData({ 
-        keywords,
-        background: app.globalData.backgrounds.find(bg => bg.id === backgroundId)
+        keywords: decodeURIComponent(keywords),
+        background: app.globalData.backgrounds.find(bg => bg.id === parseInt(backgroundId))
       })
+      
       this.generateWish()
-    })
+    } catch (error) {
+      console.error('Page load error:', error)
+      wx.showToast({
+        title: '页面加载错误',
+        icon: 'none'
+      })
+      setTimeout(() => {
+        wx.navigateBack()
+      }, 1500)
+    }
   },
 
   async generateWish() {
