@@ -1,0 +1,40 @@
+<view class="container">
+  <view class="keywords-card">
+    <text class="label">您输入的关键词</text>
+    <text class="keywords">{{keywords}}</text>
+  </view>
+
+  <view class="result-section">
+    <block wx:if="{{generating}}">
+      <view class="loading">
+        <image class="loading-icon" src="/images/loading.gif" mode="aspectFit"></image>
+        <text>正在生成祝福语...</text>
+      </view>
+    </block>
+    
+    <block wx:elif="{{error}}">
+      <view class="error">
+        <icon type="warn" size="40"></icon>
+        <text>{{error}}</text>
+        <button class="retry-btn" bindtap="regenerate">重试</button>
+      </view>
+    </block>
+    
+    <block wx:elif="{{wishText}}">
+      <view class="wish-card">
+        <text class="wish-text">{{wishText}}</text>
+      </view>
+      
+      <view class="action-buttons">
+        <button class="secondary-btn" bindtap="regenerate">
+          <image src="/images/refresh.png"></image>
+          重新生成
+        </button>
+        <button class="primary-btn" bindtap="preview">
+          <image src="/images/preview.png"></image>
+          预览效果
+        </button>
+      </view>
+    </block>
+  </view>
+</view>

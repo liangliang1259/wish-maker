@@ -1,0 +1,32 @@
+<view class="container">
+  <view class="header">
+    <image class="logo" src="/images/logo.png" mode="aspectFit"></image>
+    <text class="title">新年祝福生成器</text>
+  </view>
+
+  <view class="input-section">
+    <input 
+      class="keyword-input" 
+      placeholder="输入关键词，例如：家人、朋友、同事..." 
+      bindinput="onInput"
+      value="{{keywords}}"
+    />
+  </view>
+
+  <view class="background-section">
+    <text class="section-title">选择背景</text>
+    <scroll-view class="background-list" scroll-x="true">
+      <view 
+        class="background-item {{selectedBackground.id === item.id ? 'selected' : ''}}" 
+        wx:for="{{backgrounds}}" 
+        wx:key="id"
+        bindtap="selectBackground"
+        data-id="{{item.id}}"
+      >
+        <image src="{{item.url}}" mode="aspectFill"></image>
+      </view>
+    </scroll-view>
+  </view>
+
+  <button class="generate-btn" bindtap="generateWish">生成祝福</button>
+</view>
