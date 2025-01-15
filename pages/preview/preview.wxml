@@ -1,2 +1,11 @@
 <!--pages/preview/preview.wxml-->
-<text>pages/preview/preview.wxml</text>
+<view class="preview-container">
+  <view class="preview-card" style="background-image: url('{{background.url}}')">
+    <view class="wish-text">{{wishText}}</view>
+  </view>
+  
+  <view class="action-buttons">
+    <button class="share-btn" open-type="share">分享到微信</button>
+    <button class="download-btn" bindtap="saveImage">保存图片</button>
+  </view>
+</view>

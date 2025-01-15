@@ -63,17 +63,8 @@ Page({
   },
 
   preview() {
-    // 跳转到预览页面
-    const params = {
-      text: this.data.wishText,
-      backgroundId: this.data.background.id
-    }
-    
     wx.navigateTo({
-      url: '/pages/preview/preview',
-      success: (res) => {
-        res.eventChannel.emit('acceptDataFromOpenerPage', params)
-      }
+      url: `/pages/preview/preview?wishText=${encodeURIComponent(this.data.wishText)}&backgroundId=${this.data.background.id}`
     })
   }
 })
