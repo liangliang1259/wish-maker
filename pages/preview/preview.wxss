@@ -38,6 +38,7 @@
   display: flex;
   justify-content: space-between;
   padding: 0 20rpx;
+  box-sizing: border-box;
 }
 
 .share-btn, .download-btn {
@@ -48,6 +49,10 @@
   border-radius: 44rpx;
   font-size: 32rpx;
   color: #ffffff;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .share-btn {

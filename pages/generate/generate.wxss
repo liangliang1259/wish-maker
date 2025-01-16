@@ -29,20 +29,22 @@
   padding: 30rpx;
   border-radius: 16rpx;
   margin-bottom: 40rpx;
-  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .label {
   font-size: 28rpx;
   color: #666;
-  display: block;
-  margin-bottom: 16rpx;
+  margin-bottom: 20rpx;
 }
 
 .keywords {
-  font-size: 32rpx;
+  font-size: 36rpx;
   color: #333;
-  font-weight: 500;
+  font-weight: bold;
+  font-family: "HYZhuZiMuTouRenW", "YouYuan", "Microsoft YaHei", sans-serif;
 }
 
 .result-section {
@@ -58,15 +60,11 @@
   padding: 60rpx 0;
 }
 
-.loading-icon {
-  width: 80rpx;
-  height: 80rpx;
-  margin-bottom: 20rpx;
-}
-
 .loading text {
   font-size: 32rpx;
-  color: white;
+  color: #fff;
+  text-shadow: 0 2rpx 4rpx rgba(0,0,0,0.5);
+  font-family: "HYZhuZiMuTouRenW", "YouYuan", "Microsoft YaHei", sans-serif;
 }
 
 .error {
@@ -75,57 +73,77 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20rpx;
 }
 
 .error text {
-  font-size: 32rpx;
-  color: white;
+  color: #ff4d4f;
+  font-size: 28rpx;
   margin: 20rpx 0;
 }
 
 .retry-btn {
-  background: white;
-  color: #D4001A;
-  font-size: 32rpx;
-  padding: 20rpx 60rpx;
+  margin-top: 20rpx;
+  background: #ff4d4f;
+  color: #fff;
+  padding: 16rpx 40rpx;
   border-radius: 12rpx;
 }
 
 .wish-card {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.95);
   padding: 40rpx;
   border-radius: 16rpx;
   margin-bottom: 60rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.1);
 }
 
 .wish-text {
   font-size: 36rpx;
-  line-height: 1.6;
+  line-height: 1.8;
   white-space: pre-wrap;
+  text-align: center;
+  font-family: "HYZhuZiMuTouRenW", "YouYuan", "Microsoft YaHei", sans-serif;
+  background: linear-gradient(45deg, #333 0%, #666 50%, #333 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none !important;
+  animation: textShine 2s linear infinite;
+}
+
+@keyframes textShine {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
 }
 
 .action-buttons {
   display: flex;
   gap: 20rpx;
   margin-top: 40rpx;
+  justify-content: center;
 }
 
 .secondary-btn, .primary-btn {
   flex: 1;
   font-size: 32rpx;
-  padding: 24rpx 0;
-  border-radius: 12rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  border-radius: 44rpx;
+  color: #fff;
+  font-family: "HYZhuZiMuTouRenW", "YouYuan", "Microsoft YaHei", sans-serif;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .secondary-btn {
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-  backdrop-filter: blur(10px);
+  background: linear-gradient(135deg, #ff4d4f 0%, #ff7875 100%);
 }
 
 .primary-btn {
-  background: #D4001A;
-  color: white;
+  background: linear-gradient(135deg, #1890ff 0%, #69c0ff 100%);
 }
