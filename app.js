@@ -19,22 +19,22 @@ App({
     this.globalData.backgrounds = [
       {
         id: 1,
-        name: '红灯笼',
-        url: '/images/backgrounds/lantern.jpg',
+        name: '烟花',
+        url: 'https://www.helloimg.com/i/2025/01/16/678870e368709.jpg',
         textColor: '#FFFFFF',
         textShadow: '0 2px 4px rgba(0,0,0,0.5)'
       },
       {
         id: 2,
-        name: '金龙',
-        url: '/images/backgrounds/dragon.jpg',
+        name: '灯笼',
+        url: 'https://www.helloimg.com/i/2025/01/16/678870e3942e5.jpg',
         textColor: '#FFD700',
         textShadow: '0 2px 4px rgba(0,0,0,0.5)'
       },
       {
         id: 3,
         name: '舞龙',
-        url: '/images/backgrounds/dragon-dance.jpg',
+        url: 'https://img.freepik.com/free-photo/dragon-dance-chinese-new-year_1417-1789.jpg',
         textColor: '#FFFFFF',
         textShadow: '0 2px 4px rgba(0,0,0,0.5)'
       }

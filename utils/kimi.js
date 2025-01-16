@@ -3,11 +3,12 @@ const KIMI_API_KEY = 'sk-Nbj0hq8vd2QbsfqnGocp2OurXTmRGu8uWCHVbJh8TTypV23b'
 
 const generateWish = function(keywords) {
   return new Promise((resolve, reject) => {
-    const prompt = `请根据关键词"${keywords}"生成一段新年祝福语，要求：
-    1. 字数在50-100字之间
-    2. 语言要温暖有趣
-    3. 要符合中国传统文化
-    4. 要结合当前2024年春节的时代特点
+    const prompt = `请根据关键词"${keywords}"生成一段新年祝福语，关键词是人名，要求：
+    1. 要以${keywords}，新年快乐！作为开头
+    2. 字数在50-100字之间
+    3. 语言要温暖有趣
+    4. 要符合中国传统文化
+    5. 要结合当前2024年春节的时代特点
     请直接返回祝福语内容，不要加任何其他说明。`
 
     wx.request({
