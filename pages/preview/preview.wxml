@@ -1,66 +1,33 @@
 <!--pages/preview/preview.wxml-->
-<view class="preview-container">
-  <view class="preview-content">
-    <!-- 顶部区域 -->
-    <view class="header-section">
-      <view class="name-container">
-        <text class="user-name">hi，{{keywords}}</text>
-      </view>
-      <view class="decoration-container">
-        <view class="lantern left">
-          <view class="lantern-top"></view>
-          <view class="lantern-body"></view>
-          <view class="lantern-bottom"></view>
-        </view>
-        <view class="cloud-group">
-          <view class="cloud"></view>
-          <view class="cloud"></view>
-          <view class="cloud"></view>
-        </view>
-        <view class="lantern right">
-          <view class="lantern-top"></view>
-          <view class="lantern-body"></view>
-          <view class="lantern-bottom"></view>
-        </view>
-      </view>
-    </view>
-
-    <!-- 中部祝福语区域 -->
-    <view class="wish-section">
-      <view class="wish-container">
-        <view class="corner top-left"></view>
-        <view class="corner top-right"></view>
-        <view class="corner bottom-left"></view>
-        <view class="corner bottom-right"></view>
-        <text class="wish-text">{{wishText}}</text>
-      </view>
-    </view>
-
-    <!-- 底部装饰区域 -->
-    <view class="footer-section">
-      <view class="decoration-frame">
-        <view class="chinese-char left">福</view>
-        <view class="seal-container">
-          <view class="seal-border">
-            <view class="seal-inner"></view>
-          </view>
-        </view>
-        <view class="chinese-char right">春</view>
-      </view>
-      <view class="wave-pattern"></view>
-    </view>
+<view class="container">
+  <!-- 背景圆圈装饰 -->
+  <view class="circles">
+    <view class="circle" wx:for="{{10}}" wx:key="index"></view>
   </view>
+  
+  <!-- 页面头部 -->
+  <view class="header">
+    <view class="title">HAPPY
+NEW
+YEAR</view>
+    <view class="year">2025
+SNAKE
+*</view>
+  </view>
+
+  <!-- 主要内容 -->
+  <view class="content">
+    <view class="name">{{keywords}}</view>
+    <view class="greeting">～新年快乐～</view>
+    <view class="message">{{wishText}}</view>
+  </view>
+
+  <!-- 底部装饰 -->
+  <view class="bottom-curve"></view>
 
   <!-- 操作按钮 -->
-  <view class="action-buttons">
-    <button class="share-btn" open-type="share">分享到微信</button>
-    <button class="download-btn" bindtap="saveImage">保存图片</button>
-  </view>
-
-  <!-- 红包雨动画 -->
-  <view class="red-packet-rain" wx:if="{{showRedPacket}}">
-    <view class="red-packet" wx:for="{{12}}" wx:key="index">
-      <view class="red-packet-design"></view>
-    </view>
+  <view class="share-buttons">
+    <button class="share-button" open-type="share">分享到微信</button>
+    <button class="share-button" bindtap="saveImage">保存图片</button>
   </view>
 </view>

@@ -64,7 +64,7 @@ Page({
 
   preview() {
     wx.navigateTo({
-      url: `/pages/preview/preview?wishText=${encodeURIComponent(this.data.wishText)}&backgroundId=${this.data.background.id}`
+      url: `/pages/preview/preview?wishText=${encodeURIComponent(this.data.wishText)}&backgroundId=${this.data.background.id}&keywords=${encodeURIComponent(this.data.keywords)}`
     })
   }
 })
