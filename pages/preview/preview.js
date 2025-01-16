@@ -1,24 +1,24 @@
-// pages/preview/preview.js
 const app = getApp()
 
 Page({
   data: {
     wishText: '',
-    background: null
+    keywords: '',
+    background: null,
+    qrCodeUrl: '/images/qrcode-placeholder.png', // 使用占位图片替代二维码
+    showRedPacket: false
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad(options) {
     try {
-      const { wishText, backgroundId } = options
+      const { wishText, backgroundId, keywords } = options
       if (!wishText || !backgroundId) {
         throw new Error('缺少必要参数')
       }
 
       this.setData({
         wishText: decodeURIComponent(wishText),
+        keywords: decodeURIComponent(keywords),
         background: app.globalData.backgrounds.find(bg => bg.id === parseInt(backgroundId))
       })
     } catch (error) {
@@ -33,61 +33,16 @@ Page({
     }
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-
-  },
-
-  /**
-   * 保存图片
-   */
   async saveImage() {
     wx.showLoading({
       title: '保存中...',
     })
 
     try {
-      // 获取预览卡片的节点信息
+      // 获取整个预览卡片的节点信息
       const query = wx.createSelectorQuery()
       const cardNode = await new Promise((resolve, reject) => {
-        query.select('.preview-card')
+        query.select('.preview-container')
           .fields({ node: true, size: true })
           .exec((res) => {
             if (res[0]) {
@@ -115,14 +70,32 @@ Page({
       })
       ctx.drawImage(bgImage, 0, 0, cardNode.width, cardNode.height)
 
-      // 绘制文字
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.3)'
-      ctx.fillRect(cardNode.width * 0.1, cardNode.height * 0.4, cardNode.width * 0.8, cardNode.height * 0.2)
-      ctx.font = '16px sans-serif'
-      ctx.fillStyle = '#ffffff'
+      // 绘制内容
+      ctx.font = '48px STKaiti'
+      ctx.fillStyle = '#FFD700'
       ctx.textAlign = 'center'
-      ctx.textBaseline = 'middle'
-      ctx.fillText(this.data.wishText, cardNode.width / 2, cardNode.height / 2)
+      ctx.fillText(this.data.keywords, cardNode.width / 2, 120)
+
+      ctx.font = '36px STXingkai'
+      ctx.fillStyle = '#333'
+      const wishLines = this.getTextLines(ctx, this.data.wishText, cardNode.width * 0.8)
+      let y = cardNode.height / 2
+      wishLines.forEach(line => {
+        ctx.fillText(line, cardNode.width / 2, y)
+        y += 50
+      })
+
+      // 绘制二维码占位图
+      const qrImage = canvas.createImage()
+      await new Promise((resolve, reject) => {
+        qrImage.onload = resolve
+        qrImage.onerror = reject
+        qrImage.src = this.data.qrCodeUrl
+      })
+      const qrSize = 200
+      const qrX = (cardNode.width - qrSize) / 2
+      const qrY = cardNode.height - qrSize - 100
+      ctx.drawImage(qrImage, qrX, qrY, qrSize, qrSize)
 
       // 导出图片
       const tempFilePath = `${wx.env.USER_DATA_PATH}/wish_${Date.now()}.png`
@@ -149,14 +122,43 @@ Page({
     }
   },
 
-  /**
-   * 用户点击右上角分享
-   */
+  getTextLines(ctx, text, maxWidth) {
+    const lines = []
+    let line = ''
+    
+    for (let i = 0; i < text.length; i++) {
+      const char = text[i]
+      const testLine = line + char
+      const metrics = ctx.measureText(testLine)
+      
+      if (metrics.width > maxWidth && line.length > 0) {
+        lines.push(line)
+        line = char
+      } else {
+        line = testLine
+      }
+    }
+    
+    if (line.length > 0) {
+      lines.push(line)
+    }
+    
+    return lines
+  },
+
   onShareAppMessage() {
+    this.showRedPacketAnimation()
     return {
-      title: '送你一份新年祝福',
-      path: `/pages/preview/preview?wishText=${encodeURIComponent(this.data.wishText)}&backgroundId=${this.data.background.id}`,
+      title: `${this.data.keywords}给您送来新年祝福`,
+      path: `/pages/preview/preview?wishText=${encodeURIComponent(this.data.wishText)}&backgroundId=${this.data.background.id}&keywords=${encodeURIComponent(this.data.keywords)}`,
       imageUrl: this.data.background.url
     }
+  },
+
+  showRedPacketAnimation() {
+    this.setData({ showRedPacket: true })
+    setTimeout(() => {
+      this.setData({ showRedPacket: false })
+    }, 3000)
   }
 })
