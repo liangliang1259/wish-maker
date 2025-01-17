@@ -34,8 +34,8 @@
 .circle:nth-child(5) { width: 350rpx; height: 350rpx; left: 15%; top: 50%; animation-delay: 4s; }
 
 /* 烟花效果 */
-.fireworks-container {
-  position: absolute;
+.fireworks {
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -45,62 +45,77 @@
 
 .firework-group {
   position: absolute;
-  transform-origin: center;
-}
-
-.firework-group:nth-child(1) {
-  left: 30%;
-  top: 20%;
-  animation: moveUpAndExplode 2s infinite;
-  animation-delay: 0s;
-}
-
-.firework-group:nth-child(2) {
-  left: 60%;
-  top: 30%;
-  animation: moveUpAndExplode 2s infinite;
-  animation-delay: 0.6s;
-}
-
-.firework-group:nth-child(3) {
-  left: 45%;
-  top: 25%;
-  animation: moveUpAndExplode 2s infinite;
-  animation-delay: 1.2s;
-}
-
-.firework-core {
-  position: absolute;
-  width: 8rpx;
-  height: 8rpx;
-  background: #fff;
+  width: 10rpx;
+  height: 10rpx;
   border-radius: 50%;
-  transform: scale(0);
-  animation: coreExplode 2s ease-out infinite;
+  animation: shoot 2s ease-out infinite;
 }
 
-.spark {
+.firework-group:nth-child(1) { left: 20%; animation-delay: 0s; }
+.firework-group:nth-child(2) { left: 40%; animation-delay: 0.4s; }
+.firework-group:nth-child(3) { left: 60%; animation-delay: 0.8s; }
+.firework-group:nth-child(4) { left: 80%; animation-delay: 1.2s; }
+.firework-group:nth-child(5) { left: 30%; animation-delay: 1.6s; }
+.firework-group:nth-child(6) { left: 50%; animation-delay: 2.0s; }
+.firework-group:nth-child(7) { left: 70%; animation-delay: 2.4s; }
+.firework-group:nth-child(8) { left: 90%; animation-delay: 2.8s; }
+
+.firework-particle {
   position: absolute;
   width: 4rpx;
   height: 4rpx;
   background: #fff;
   border-radius: 50%;
+  animation: explode 1s ease-out forwards;
   opacity: 0;
 }
 
-/* 生成12个火花，每个旋转30度 */
-.spark:nth-child(1) { transform: rotate(0deg) translate(0, 0); }
-.spark:nth-child(2) { transform: rotate(30deg) translate(0, 0); }
-.spark:nth-child(3) { transform: rotate(60deg) translate(0, 0); }
-.spark:nth-child(4) { transform: rotate(90deg) translate(0, 0); }
-.spark:nth-child(5) { transform: rotate(120deg) translate(0, 0); }
-.spark:nth-child(6) { transform: rotate(150deg) translate(0, 0); }
-.spark:nth-child(7) { transform: rotate(180deg) translate(0, 0); }
-.spark:nth-child(8) { transform: rotate(210deg) translate(0, 0); }
-.spark:nth-child(9) { transform: rotate(240deg) translate(0, 0); }
-.spark:nth-child(10) { transform: rotate(270deg) translate(0, 0); }
-.spark:nth-child(11) { transform: rotate(300deg) translate(0, 0); }
-.spark:nth-child(12) { transform: rotate(330deg) translate(0, 0); }
+/* 设置每个粒子的不同方向 */
+.firework-particle:nth-child(1) { transform: rotate(0deg); }
+.firework-particle:nth-child(2) { transform: rotate(45deg); }
+.firework-particle:nth-child(3) { transform: rotate(90deg); }
+.firework-particle:nth-child(4) { transform: rotate(135deg); }
+.firework-particle:nth-child(5) { transform: rotate(180deg); }
+.firework-particle:nth-child(6) { transform: rotate(225deg); }
+.firework-particle:nth-child(7) { transform: rotate(270deg); }
+.firework-particle:nth-child(8) { transform: rotate(315deg); }
+
+@keyframes shoot {
+  0% {
+    transform: translateY(100vh);
+    background: #fff;
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(30vh);
+    background: #fff;
+    opacity: 1;
+  }
+  50.1% {
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(30vh);
+    opacity: 0;
+  }
+}
+
+@keyframes explode {
+  0% {
+    transform: rotate(var(--angle)) translateX(0) scale(1);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  50.1% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(var(--angle)) translateX(100rpx) scale(0);
+    opacity: 0;
+  }
+}
 
 /* 闪烁的星星 */
 .stars {
@@ -142,64 +157,6 @@
 .star:nth-child(18) { left: 95%; top: 45%; animation-delay: 1.7s; }
 .star:nth-child(19) { left: 5%; top: 50%; animation-delay: 1.8s; }
 .star:nth-child(20) { left: 15%; top: 55%; animation-delay: 1.9s; }
-
-/* 动画关键帧 */
-@keyframes moveUpAndExplode {
-  0% {
-    transform: translateY(100vh) scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: translateY(30vh) scale(1);
-    opacity: 1;
-  }
-  60% {
-    transform: translateY(25vh) scale(1.5);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(25vh) scale(1.5);
-    opacity: 0;
-  }
-}
-
-@keyframes coreExplode {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  60% {
-    transform: scale(3);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(30);
-    opacity: 0;
-  }
-}
-
-@keyframes sparkExplode {
-  0% {
-    transform: scale(1) rotate(0deg) translateX(0);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1) rotate(0deg) translateX(0);
-    opacity: 1;
-  }
-  60% {
-    transform: scale(1) rotate(0deg) translateX(100rpx);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1) rotate(0deg) translateX(200rpx);
-    opacity: 0;
-  }
-}
 
 @keyframes twinkle {
   0% {
@@ -295,6 +252,7 @@
   line-height: 1.8;
   text-align: center;
   white-space: pre-line;
+  margin: 0 40rpx;
 }
 
 /* 底部按钮 */
