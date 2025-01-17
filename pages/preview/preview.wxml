@@ -26,6 +26,9 @@ SNAKE
   <view class="bottom-curve"></view>
 
   <!-- 操作按钮 -->
+  <view class="firework-container">
+    <view class="firework"></view>
+  </view>
   <view class="share-buttons">
     <block wx:if="{{!hasUserInfo}}">
       <button class="share-button" open-type="getPhoneNumber" bindgetphonenumber="getUserProfile">点击授权</button>
