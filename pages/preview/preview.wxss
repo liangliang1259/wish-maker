@@ -272,6 +272,7 @@
   z-index: 2;
   text-align: center;
   padding: 1rem;
+  transform: translateY(-5px);
 }
 
 .name {

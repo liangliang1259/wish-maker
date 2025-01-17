@@ -27,7 +27,7 @@ SNAKE
 
   <!-- 操作按钮 -->
   <view class="share-buttons">
-    <button class="share-button" open-type="share">分享到微信</button>
-    <button class="share-button" bindtap="saveImage">保存图片</button>
+    <button class="share-button" open-type="share">分享给他</button>
+    <button class="share-button" bindtap="saveImage">分享图片</button>
   </view>
 </view>
