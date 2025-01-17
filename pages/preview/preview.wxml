@@ -1,5 +1,5 @@
 <!--pages/preview/preview.wxml-->
-<view class="container">
+<view class="container preview-container">
   <!-- 背景圆圈装饰 -->
   <view class="circles">
     <view class="circle" wx:for="{{10}}" wx:key="index"></view>
@@ -33,6 +33,5 @@ SNAKE
     <block wx:else>
       <button class="share-button" open-type="share">分享给他</button>
     </block>
-    <button class="share-button" bindtap="saveImage">分享图片</button>
   </view>
 </view>
