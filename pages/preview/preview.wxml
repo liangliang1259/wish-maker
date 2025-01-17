@@ -7,12 +7,36 @@
   
   <!-- 页面头部 -->
   <view class="header">
-    <view class="title">HAPPY
-NEW
-YEAR</view>
-    <view class="year">2025
-SNAKE
-*</view>
+    <view class="title">
+      <text>H</text>
+      <text>A</text>
+      <text>P</text>
+      <text>P</text>
+      <text>Y</text>
+      <text>\n</text>
+      <text>N</text>
+      <text>E</text>
+      <text>W</text>
+      <text>\n</text>
+      <text>Y</text>
+      <text>E</text>
+      <text>A</text>
+      <text>R</text>
+    </view>
+    <view class="year">
+      <text>2</text>
+      <text>0</text>
+      <text>2</text>
+      <text>5</text>
+      <text>\n</text>
+      <text>S</text>
+      <text>N</text>
+      <text>A</text>
+      <text>K</text>
+      <text>E</text>
+      <text>\n</text>
+      <text>*</text>
+    </view>
   </view>
 
   <!-- 主要内容 -->

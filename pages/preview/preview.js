@@ -6,7 +6,9 @@ Page({
     wishText: '',
     background: null,
     userInfo: null,
-    hasUserInfo: false
+    hasUserInfo: false,
+    showRedPackets: false,
+    showFlash: false
   },
 
   onLoad: function(options) {
@@ -27,6 +29,9 @@ Page({
           hasUserInfo: true
         })
       }
+
+      // 触发闪光效果
+      this.triggerFlash()
     } catch (error) {
       console.error('Preview page load error:', error)
       wx.showToast({
@@ -111,9 +116,28 @@ Page({
     })
   },
 
+  // 触发闪光效果
+  triggerFlash() {
+    this.setData({ showFlash: true })
+    setTimeout(() => {
+      this.setData({ showFlash: false })
+    }, 1000)
+  },
+
+  // 触发红包雨效果
+  triggerRedPackets() {
+    this.setData({ showRedPackets: true })
+    setTimeout(() => {
+      this.setData({ showRedPackets: false })
+    }, 3000)
+  },
+
   onShareAppMessage() {
     console.log('触发分享事件，当前用户信息：', this.data.userInfo)
-    this.showRedPacketAnimation()
+    
+    // 触发红包雨和闪光效果
+    this.triggerRedPackets()
+    this.triggerFlash()
     
     const nickname = this.data.userInfo ? this.data.userInfo.nickName : '您的好友'
     console.log('使用的昵称：', nickname)
