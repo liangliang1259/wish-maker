@@ -117,6 +117,142 @@
   }
 }
 
+.firework {
+  position: absolute;
+  width: 6rpx;
+  height: 6rpx;
+  border-radius: 50%;
+  animation: launch 1.5s ease-out forwards;
+}
+
+.trail {
+  position: absolute;
+  width: 4rpx;
+  height: 60rpx;
+  background: linear-gradient(to top, 
+    transparent,
+    rgba(255, 220, 100, 0.8) 30%,
+    rgba(255, 255, 255, 0.9)
+  );
+  animation: trail 1.5s ease-out forwards;
+  transform-origin: bottom;
+}
+
+.explosion {
+  position: absolute;
+  width: 6rpx;
+  height: 6rpx;
+  opacity: 0;
+  transform-origin: center;
+  animation: explosion 0.8s ease-out forwards;
+  animation-delay: 1.5s;
+}
+
+.spark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 120rpx;
+  height: 3rpx;
+  background: linear-gradient(to right,
+    rgba(255, 220, 100, 0.9) 0%,
+    rgba(255, 220, 100, 0.6) 60%,
+    transparent 100%
+  );
+  transform-origin: left center;
+  animation: spark 0.8s ease-out forwards;
+  animation-delay: 1.5s;
+}
+
+.spark::after {
+  content: '';
+  position: absolute;
+  width: 4rpx;
+  height: 4rpx;
+  border-radius: 50%;
+  background: rgba(255, 220, 100, 0.9);
+  right: 0;
+  animation: sparkle 0.8s ease-out forwards;
+  animation-delay: 1.5s;
+}
+
+@keyframes launch {
+  0% {
+    transform: translateY(100vh) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(30vh) scale(0.8);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(0) scale(0.6);
+    opacity: 0;
+  }
+}
+
+@keyframes trail {
+  0% {
+    height: 60rpx;
+    opacity: 1;
+    transform: scaleY(1);
+  }
+  70% {
+    opacity: 0.8;
+    transform: scaleY(0.8);
+  }
+  100% {
+    height: 0;
+    opacity: 0;
+    transform: scaleY(0);
+  }
+}
+
+@keyframes explosion {
+  0% {
+    transform: scale(0.1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
+
+@keyframes spark {
+  0% {
+    transform: rotate(0deg) scale(0);
+    opacity: 1;
+  }
+  50% {
+    transform: rotate(180deg) scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: rotate(360deg) scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes sparkle {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(2);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
 /* 烟花效果 */
 .fireworks-container {
   position: fixed;
@@ -589,54 +725,70 @@
 }
 
 .name {
-  font-size: 40rpx;
+  font-size: 68rpx;
   color: #fff;
-  margin-bottom: 20rpx;
+  margin-bottom: 40rpx;
   text-align: center;
-  font-weight: normal;
   z-index: 10;
-  text-shadow: 0 0 10rpx rgba(255, 255, 255, 0.5);
+  font-family: "STKaiti", "华文楷体", serif;
+  text-shadow: 0 0 15rpx rgba(255, 215, 0, 0.7);
+  animation: floatText 3s ease-in-out infinite;
+  background: linear-gradient(120deg, #ffd700 0%, #ffd700 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 8rpx;
+  font-weight: bold;
+  padding: 10rpx 0;
+}
+
+@keyframes floatText {
+  0%, 100% {
+    transform: translateY(0) rotate(-1deg);
+    text-shadow: 0 0 20rpx rgba(255, 215, 0, 0.7),
+                 0 0 40rpx rgba(255, 215, 0, 0.4);
+  }
+  50% {
+    transform: translateY(-15rpx) rotate(1deg);
+    text-shadow: 0 0 30rpx rgba(255, 215, 0, 0.9),
+                 0 0 60rpx rgba(255, 215, 0, 0.6);
+  }
 }
 
 .greeting {
-  font-size: 72rpx;
+  font-size: 82rpx;
   margin: 40rpx 0;
   text-align: center;
   font-weight: bold;
-  letter-spacing: 4rpx;
+  letter-spacing: 8rpx;
   position: relative;
   z-index: 10;
-  background: linear-gradient(to right, #ff4d4f, #ffcd32, #ff4d4f);
+  font-family: "STXingkai", "华文行楷", "STKaiti", cursive;
+  background: linear-gradient(to right, #ff4d4f, #ffd700, #ff4d4f);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: gradientMove 3s linear infinite;
+  animation: shineText 3s linear infinite, bounceText 2s ease-in-out infinite;
+  transform-origin: center;
 }
 
-.greeting::before {
-  display: none;
+@keyframes shineText {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
 }
 
-.greeting::after {
-  content: '';
-  position: absolute;
-  top: -15rpx;
-  left: -15rpx;
-  right: -15rpx;
-  bottom: -15rpx;
-  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
-  animation: glowAnimation 2s ease-in-out infinite;
-  z-index: -1;
-  filter: blur(5rpx);
-}
-
-@keyframes glowAnimation {
+@keyframes bounceText {
   0%, 100% {
-    opacity: 0.6;
     transform: scale(1);
+    text-shadow: 0 0 20rpx rgba(255, 215, 0, 0.6);
   }
   50% {
-    opacity: 1;
-    transform: scale(1.1);
+    transform: scale(1.05);
+    text-shadow: 0 0 30rpx rgba(255, 215, 0, 0.8),
+                 0 0 50rpx rgba(255, 77, 79, 0.4);
   }
 }
 

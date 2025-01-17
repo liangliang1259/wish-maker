@@ -172,19 +172,21 @@ Page({
 
     // 定时生成烟花
     const createFirework = () => {
-      // 随机位置
+      // 随机位置和大小
       const x = Math.random() * 80 + 10; // 10% - 90%
-      const y = Math.random() * 30 + 20; // 20% - 50%
+      const y = Math.random() * 40 + 30; // 30% - 70%
+      const scale = Math.random() * 0.5 + 0.8; // 0.8 - 1.3
 
       // 添加新烟花
       fireworks.push({
         id: fireworkId++,
         x,
-        y
+        y,
+        scale
       });
 
       // 限制最大数量
-      if (fireworks.length > 5) {
+      if (fireworks.length > 8) {
         fireworks.shift();
       }
 
@@ -195,17 +197,23 @@ Page({
       setTimeout(() => {
         fireworks = fireworks.filter(f => f.id !== fireworkId - 1);
         this.setData({ fireworks });
-      }, 2000);
+      }, 2300); // 总动画时间
     };
 
     // 随机间隔生成烟花
     const createRandomFirework = () => {
       createFirework();
-      setTimeout(createRandomFirework, Math.random() * 2000 + 1000);
+      // 随机间隔 0.8-2 秒
+      setTimeout(createRandomFirework, Math.random() * 1200 + 800);
     };
 
-    // 开始生成烟花
-    createRandomFirework();
+    // 开始时立即发射多个烟花
+    for (let i = 0; i < 3; i++) {
+      setTimeout(() => createFirework(), i * 300);
+    }
+
+    // 继续随机生成
+    setTimeout(createRandomFirework, 2000);
   },
 
   onShareAppMessage() {
