@@ -8,13 +8,17 @@ Page({
     userInfo: null,
     hasUserInfo: false,
     showRedPackets: false,
-    showFlash: false
+    showFlash: false,
+    isOpened: false,
+    coins: [],
+    fireworks: []
   },
 
   onLoad: function(options) {
     try {
       const { wishText, backgroundId, keywords } = options
       
+      // 只在一个地方设置数据，确保正确解码
       this.setData({
         keywords: decodeURIComponent(keywords || ''),
         wishText: this.formatWishText(decodeURIComponent(wishText || '')),
@@ -32,6 +36,9 @@ Page({
 
       // 触发闪光效果
       this.triggerFlash()
+      
+      // 开始烟花效果
+      this.startFireworks();
     } catch (error) {
       console.error('Preview page load error:', error)
       wx.showToast({
@@ -130,6 +137,75 @@ Page({
     setTimeout(() => {
       this.setData({ showRedPackets: false })
     }, 3000)
+  },
+
+  openEnvelope() {
+    if (this.data.isOpened) return;
+    
+    // 播放打开红包的音效
+    const audio = wx.createInnerAudioContext();
+    audio.src = '/assets/sounds/open.mp3';  // 需要添加音效文件
+    audio.play();
+
+    // 添加金币随机位置
+    const coins = [];
+    for (let i = 0; i < 8; i++) {
+      const tx = Math.random() * 300 - 150; // 随机左右偏移
+      coins.push({
+        '--tx': tx + 'rpx'
+      });
+    }
+
+    this.setData({
+      isOpened: true,
+      coins
+    });
+
+    // 震动反馈
+    wx.vibrateShort();
+  },
+
+  startFireworks() {
+    // 初始化烟花数组
+    let fireworks = [];
+    let fireworkId = 0;
+
+    // 定时生成烟花
+    const createFirework = () => {
+      // 随机位置
+      const x = Math.random() * 80 + 10; // 10% - 90%
+      const y = Math.random() * 30 + 20; // 20% - 50%
+
+      // 添加新烟花
+      fireworks.push({
+        id: fireworkId++,
+        x,
+        y
+      });
+
+      // 限制最大数量
+      if (fireworks.length > 5) {
+        fireworks.shift();
+      }
+
+      // 更新数据
+      this.setData({ fireworks });
+
+      // 移除已完成的烟花
+      setTimeout(() => {
+        fireworks = fireworks.filter(f => f.id !== fireworkId - 1);
+        this.setData({ fireworks });
+      }, 2000);
+    };
+
+    // 随机间隔生成烟花
+    const createRandomFirework = () => {
+      createFirework();
+      setTimeout(createRandomFirework, Math.random() * 2000 + 1000);
+    };
+
+    // 开始生成烟花
+    createRandomFirework();
   },
 
   onShareAppMessage() {

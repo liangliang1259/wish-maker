@@ -1,5 +1,5 @@
 <!--pages/preview/preview.wxml-->
-<view class="container preview-container">
+<view class="container">
   <!-- 背景圆圈装饰 -->
   <view class="circles">
     <view class="circle" wx:for="{{10}}" wx:key="index"></view>
@@ -9,23 +9,43 @@
  
   <!-- 主要内容 -->
   <view class="preview-container">
-    <view class="content">
+    <view class="fireworks-container">
+      <view class="firework" wx:for="{{fireworks}}" wx:key="id" style="left: {{item.x}}%; bottom: {{item.y}}%;">
+        <view class="trail"></view>
+        <view class="explosion">
+          <view class="spark" wx:for="{{24}}" wx:key="*this" style="transform: rotate({{index * 15}}deg)"></view>
+        </view>
+      </view>
+    </view>
+
+    <view class="red-envelope {{isOpened ? 'opened' : ''}}" bindtap="openEnvelope">
+      <view class="envelope-front">
+        <view class="seal">
+          <view class="seal-circle"></view>
+        </view>
+        <view class="envelope-text">新年祝福</view>
+      </view>
+      <view class="envelope-flap">
+        <view class="flap-top"></view>
+        <view class="flap-bottom"></view>
+      </view>
+    </view>
+
+    <view class="content {{isOpened ? 'show' : ''}}">
       <view class="name">{{keywords}}</view>
-      <view class="greeting">～新年快乐～</view>
+      <view class="greeting">新年快乐</view>
       <view class="message">{{wishText}}</view>
+    </view>
+
+    <view class="coins-container {{isOpened ? 'show' : ''}}">
+      <view class="coin" wx:for="{{8}}" wx:key="index"></view>
     </view>
 
     <view class="bottom-curve"></view>
 
-    <!-- 烟花效果 -->
-    <view class="firework-container">
-      <view class="firework"></view>
-    </view>
-
-    <!-- 操作按钮 -->
-    <view class="share-buttons">
+    <view class="share-buttons {{isOpened ? 'show' : ''}}">
       <block wx:if="{{!hasUserInfo}}">
-        <button class="share-button" open-type="getPhoneNumber" bindgetphonenumber="getUserProfile">点击授权</button>
+        <button class="share-button" open-type="getPhoneNumber" bindgetphonenumber="getUserProfile">点击分享</button>
       </block>
       <block wx:else>
         <button class="share-button" open-type="share">分享给他</button>

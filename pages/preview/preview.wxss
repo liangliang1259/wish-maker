@@ -117,6 +117,114 @@
   }
 }
 
+/* 烟花效果 */
+.fireworks-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.firework {
+  position: absolute;
+  width: 6rpx;
+  height: 6rpx;
+  animation: launch 1s ease-out forwards;
+}
+
+.trail {
+  position: absolute;
+  width: 4rpx;
+  height: 20rpx;
+  background: linear-gradient(to top, transparent, rgba(255, 220, 100, 0.8));
+  animation: trail 1s ease-out forwards;
+}
+
+.explosion {
+  position: absolute;
+  width: 6rpx;
+  height: 6rpx;
+  opacity: 0;
+  transform-origin: center;
+  animation: explosion 0.8s ease-out forwards;
+  animation-delay: 1s;
+}
+
+.spark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100rpx;
+  height: 2rpx;
+  background: linear-gradient(to right, 
+    rgba(255, 220, 100, 0.8) 0%,
+    rgba(255, 220, 100, 0.5) 50%,
+    transparent 100%
+  );
+  transform-origin: left center;
+  animation: spark 0.8s ease-out forwards;
+  animation-delay: 1s;
+}
+
+@keyframes launch {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-50vh) scale(0.8);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-100vh) scale(0.6);
+    opacity: 0;
+  }
+}
+
+@keyframes trail {
+  0% {
+    height: 20rpx;
+    opacity: 1;
+  }
+  100% {
+    height: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes explosion {
+  0% {
+    transform: scale(0.1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
+
+@keyframes spark {
+  0% {
+    transform: rotate(0deg) scale(0);
+    opacity: 1;
+  }
+  50% {
+    transform: rotate(180deg) scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: rotate(360deg) scale(0);
+    opacity: 0;
+  }
+}
+
 /* 闪烁的星星 */
 .stars {
   position: absolute;
@@ -252,6 +360,144 @@
   animation: redPacketAnimation 1s ease-out forwards;
 }
 
+/* 红包样式 */
+.red-envelope {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600rpx;
+  height: 800rpx;
+  background: linear-gradient(135deg, #ff4d4f 0%, #ff1f1f 100%);
+  border-radius: 30rpx;
+  box-shadow: 0 20rpx 40rpx rgba(0, 0, 0, 0.2);
+  transition: all 0.5s ease;
+  z-index: 100;
+}
+
+.red-envelope.opened {
+  transform: translate(-50%, -150%) scale(0.8);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.envelope-front {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 8rpx solid #ffcd32;
+  border-radius: 30rpx;
+  overflow: hidden;
+}
+
+.seal {
+  width: 120rpx;
+  height: 120rpx;
+  background: #ffcd32;
+  border-radius: 50%;
+  margin-bottom: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.seal-circle {
+  width: 80rpx;
+  height: 80rpx;
+  border: 4rpx solid #ff4d4f;
+  border-radius: 50%;
+}
+
+.envelope-text {
+  font-size: 48rpx;
+  color: #ffcd32;
+  font-weight: bold;
+  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.2);
+}
+
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: #ff6b6b;
+  transform-origin: top;
+  transition: transform 0.5s ease;
+}
+
+.red-envelope.opened .envelope-flap {
+  transform: rotateX(180deg);
+}
+
+/* 内容动画 */
+.content {
+  opacity: 0;
+  transform: translateY(60rpx);
+  transition: all 0.8s ease;
+  transition-delay: 0.3s;
+}
+
+.content.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 金币动画 */
+.coins-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 90;
+  opacity: 0;
+}
+
+.coins-container.show {
+  opacity: 1;
+}
+
+.coin {
+  position: absolute;
+  width: 40rpx;
+  height: 40rpx;
+  background: #ffcd32;
+  border-radius: 50%;
+  animation: coinFall 1s ease-out forwards;
+}
+
+@keyframes coinFall {
+  0% {
+    transform: translate(0, -100%) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--tx), 100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* 分享按钮动画 */
+.share-buttons {
+  opacity: 0;
+  transform: translateY(40rpx);
+  transition: all 0.8s ease;
+  transition-delay: 0.6s;
+}
+
+.share-buttons.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* 头部样式 */
 .header {
   position: absolute;
@@ -348,14 +594,50 @@
   margin-bottom: 20rpx;
   text-align: center;
   font-weight: normal;
+  z-index: 10;
+  text-shadow: 0 0 10rpx rgba(255, 255, 255, 0.5);
 }
 
 .greeting {
-  font-size: 40rpx;
-  color: #fff;
-  margin-bottom: 40rpx;
+  font-size: 72rpx;
+  margin: 40rpx 0;
   text-align: center;
-  font-weight: normal;
+  font-weight: bold;
+  letter-spacing: 4rpx;
+  position: relative;
+  z-index: 10;
+  background: linear-gradient(to right, #ff4d4f, #ffcd32, #ff4d4f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientMove 3s linear infinite;
+}
+
+.greeting::before {
+  display: none;
+}
+
+.greeting::after {
+  content: '';
+  position: absolute;
+  top: -15rpx;
+  left: -15rpx;
+  right: -15rpx;
+  bottom: -15rpx;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+  animation: glowAnimation 2s ease-in-out infinite;
+  z-index: -1;
+  filter: blur(5rpx);
+}
+
+@keyframes glowAnimation {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
 }
 
 .message {
@@ -367,37 +649,8 @@
   white-space: pre-wrap;
   word-wrap: break-word;
   word-break: break-all;
-  font-family: "Microsoft YaHei", "微软雅黑", sans-serif;
-  animation: textAppear 1.5s ease-out forwards;
-}
-
-.circles .circle {
-  animation: shine 2s ease-in-out infinite;
-  animation-delay: calc(var(--i) * 0.2s);
-}
-
-.content {
-  position: relative;
-}
-
-.content::before,
-.content::after {
-  content: '🎊';
-  position: absolute;
-  font-size: 40rpx;
-  animation: floating 3s ease-in-out infinite;
-}
-
-.content::before {
-  left: -40rpx;
-  top: 0;
-  animation-delay: 0.5s;
-}
-
-.content::after {
-  right: -40rpx;
-  top: 0;
-  animation-delay: 1s;
+  z-index: 10;
+  text-shadow: 0 0 10rpx rgba(255, 255, 255, 0.5);
 }
 
 /* 底部按钮 */
