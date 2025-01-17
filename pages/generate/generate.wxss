@@ -98,8 +98,8 @@
 }
 
 .wish-text {
-  font-size: 36rpx;
-  line-height: 1.8;
+  font-size: 48rpx;
+  line-height: 1.6;
   white-space: pre-wrap;
   text-align: center;
   font-family: "HYZhuZiMuTouRenW", "YouYuan", "Microsoft YaHei", sans-serif;

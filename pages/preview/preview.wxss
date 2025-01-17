@@ -238,12 +238,12 @@
 }
 
 .name {
-  font-size: 36rpx;
+  font-size: 1.5rem;
   margin-bottom: 20rpx;
 }
 
 .greeting {
-  font-size: 36rpx;
+  font-size: 2rem;
   margin-bottom: 40rpx;
 }
 
