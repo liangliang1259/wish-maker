@@ -11,5 +11,10 @@
     "navigationBarTextStyle": "black"
   },
   "style": "v2",
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "permission": {
+    "scope.userPhone": {
+      "desc": "需要获取手机号"
+    }
+  }
 }

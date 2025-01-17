@@ -27,7 +27,12 @@ SNAKE
 
   <!-- 操作按钮 -->
   <view class="share-buttons">
-    <button class="share-button" open-type="share">分享给他</button>
+    <block wx:if="{{!hasUserInfo}}">
+      <button class="share-button" open-type="getPhoneNumber" bindgetphonenumber="getUserProfile">点击授权</button>
+    </block>
+    <block wx:else>
+      <button class="share-button" open-type="share">分享给他</button>
+    </block>
     <button class="share-button" bindtap="saveImage">分享图片</button>
   </view>
 </view>

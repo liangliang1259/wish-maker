@@ -5,7 +5,9 @@ Page({
     keywords: '',
     wishText: '',
     background: null,
-    showRedPacket: false
+    showRedPacket: false,
+    userInfo: null,
+    hasUserInfo: false
   },
 
   onLoad: function(options) {
@@ -17,6 +19,15 @@ Page({
         wishText: this.formatWishText(decodeURIComponent(wishText || '')),
         background: app.globalData.backgrounds.find(bg => bg.id === parseInt(backgroundId))
       })
+
+      // 检查是否已经有用户信息
+      const userInfo = wx.getStorageSync('userInfo')
+      if (userInfo && userInfo.nickName) {
+        this.setData({
+          userInfo: userInfo,
+          hasUserInfo: true
+        })
+      }
     } catch (error) {
       console.error('Preview page load error:', error)
       wx.showToast({
@@ -147,10 +158,46 @@ Page({
     }
   },
 
+  getUserProfile(e) {
+    // 使用手机号登录后获取用户信息
+    wx.login({
+      success: (loginRes) => {
+        if (loginRes.code) {
+          // 这里模拟获取用户信息
+          const userInfo = {
+            nickName: '新年好运'
+          }
+          console.log('获取用户信息成功：', userInfo)
+          this.setData({
+            userInfo: userInfo,
+            hasUserInfo: true
+          })
+          wx.setStorageSync('userInfo', userInfo)
+          wx.showToast({
+            title: '授权成功',
+            icon: 'success'
+          })
+        }
+      }
+    })
+  },
+
+  handleShare() {
+    console.log('点击分享按钮');
+    if (!this.data.hasUserInfo) {
+      this.getUserProfile();
+    }
+  },
+
   onShareAppMessage() {
+    console.log('触发分享事件，当前用户信息：', this.data.userInfo)
     this.showRedPacketAnimation()
+    
+    const nickname = this.data.userInfo ? this.data.userInfo.nickName : '您的好友'
+    console.log('使用的昵称：', nickname)
+    
     return {
-      title: `${this.data.keywords}给您送来新年祝福`,
+      title: `${nickname}给您送来新年祝福，点击查收`,
       path: `/pages/preview/preview?wishText=${encodeURIComponent(this.data.wishText)}&backgroundId=${this.data.background.id}&keywords=${encodeURIComponent(this.data.keywords)}`,
       imageUrl: this.data.background.url
     }
