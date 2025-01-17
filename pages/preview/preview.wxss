@@ -201,6 +201,41 @@
   }
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes floating {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10rpx);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes shine {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
 /* 页面头部 */
 .header {
   display: flex;
@@ -234,25 +269,63 @@
   align-items: center;
   color: #fff;
   position: relative;
-  z-index: 1;
+  z-index: 2;
+  text-align: center;
+  padding: 1rem;
 }
 
 .name {
   font-size: 1.5rem;
   margin-bottom: 20rpx;
+  animation: fadeIn 1s ease-out;
 }
 
 .greeting {
   font-size: 2rem;
   margin-bottom: 40rpx;
+  animation: floating 2s ease-in-out infinite;
+  text-shadow: 0 0 10rpx rgba(255, 77, 79, 0.3);
 }
 
 .message {
-  font-size: 32rpx;
-  line-height: 1.8;
+  animation: fadeIn 1s ease-out 0.5s both;
+  font-size: 1rem;
+  line-height: 2;
+  margin-bottom: 1rem;
+  white-space: pre-wrap;
   text-align: center;
-  white-space: pre-line;
-  margin: 0 40rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.circles .circle {
+  animation: shine 2s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 0.2s);
+}
+
+.content {
+  position: relative;
+}
+
+.content::before,
+.content::after {
+  content: '🎊';
+  position: absolute;
+  font-size: 40rpx;
+  animation: floating 3s ease-in-out infinite;
+}
+
+.content::before {
+  left: -40rpx;
+  top: 0;
+  animation-delay: 0.5s;
+}
+
+.content::after {
+  right: -40rpx;
+  top: 0;
+  animation-delay: 1s;
 }
 
 /* 底部按钮 */

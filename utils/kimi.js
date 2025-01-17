@@ -4,7 +4,7 @@ const KIMI_API_KEY = 'sk-Nbj0hq8vd2QbsfqnGocp2OurXTmRGu8uWCHVbJh8TTypV23b'
 const generateWish = function(keywords) {
   return new Promise((resolve, reject) => {
     const prompt = `请根据关键词"${keywords}"生成一段新年祝福语，关键词是人名，要求：
-    1. 语气温和
+    1. 生成的内容中不要放入关键词
     2. 字数在50-100字之间
     3. 语言要温暖有趣
     4. 要符合中国传统文化
