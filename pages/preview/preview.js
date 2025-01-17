@@ -38,21 +38,50 @@ Page({
 
   formatWishText(text) {
     if (!text) return ''
-    const maxChars = 15
-    const result = []
-    let line = ''
     
-    for (const char of text) {
-      if (line.length >= maxChars) {
-        result.push(line)
-        line = char
+    // 按标点符号分割文本
+    const segments = text.split(/([，。！；：、？,.!;:?])/g)
+    const result = []
+    let currentLine = ''
+    
+    for (let i = 0; i < segments.length; i++) {
+      const segment = segments[i]
+      if (!segment) continue
+      
+      // 如果是标点符号，添加到当前行并换行
+      if (/[，。！；：、？,.!;:?]/.test(segment)) {
+        currentLine += segment
+        if (currentLine) {
+          result.push(currentLine)
+          currentLine = ''
+        }
+        continue
+      }
+      
+      // 如果当前行加上新片段超过20个字符，先保存当前行
+      if (currentLine.length + segment.length > 20) {
+        if (currentLine) {
+          result.push(currentLine)
+        }
+        // 如果单个片段超过20个字符，需要强制分行
+        if (segment.length > 20) {
+          let temp = segment
+          while (temp.length > 20) {
+            result.push(temp.substring(0, 20))
+            temp = temp.substring(20)
+          }
+          currentLine = temp
+        } else {
+          currentLine = segment
+        }
       } else {
-        line += char
+        currentLine += segment
       }
     }
     
-    if (line) {
-      result.push(line)
+    // 添加最后一行
+    if (currentLine) {
+      result.push(currentLine)
     }
     
     return result.join('\n')

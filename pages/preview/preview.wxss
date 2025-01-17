@@ -306,15 +306,15 @@
 }
 
 .message {
-  animation: fadeIn 1s ease-out 0.5s both;
-  font-size: 1rem;
-  line-height: 2;
-  margin-bottom: 1rem;
-  white-space: pre-wrap;
+  font-size: 42rpx;
+  color: #fff;
+  line-height: 1.8;
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: 0 60rpx;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  word-break: break-all;
+  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.2);
 }
 
 .circles .circle {
@@ -396,12 +396,12 @@
 }
 
 .share-button {
-  width: 40% !important;
-  height: 76rpx;
-  line-height: 76rpx;
+  width: 60% !important;
+  height: 88rpx;
+  line-height: 88rpx;
   background: rgba(255, 255, 255, 0.9);
-  border-radius: 38rpx;
-  font-size: 28rpx;
+  border-radius: 44rpx;
+  font-size: 32rpx;
   color: #333;
   text-align: center;
   border: none;
