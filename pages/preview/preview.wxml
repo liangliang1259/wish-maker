@@ -6,59 +6,30 @@
   </view>
   
   <!-- 页面头部 -->
-  <view class="header">
-    <view class="title">
-      <text>H</text>
-      <text>A</text>
-      <text>P</text>
-      <text>P</text>
-      <text>Y</text>
-      <text>\n</text>
-      <text>N</text>
-      <text>E</text>
-      <text>W</text>
-      <text>\n</text>
-      <text>Y</text>
-      <text>E</text>
-      <text>A</text>
-      <text>R</text>
-    </view>
-    <view class="year">
-      <text>2</text>
-      <text>0</text>
-      <text>2</text>
-      <text>5</text>
-      <text>\n</text>
-      <text>S</text>
-      <text>N</text>
-      <text>A</text>
-      <text>K</text>
-      <text>E</text>
-      <text>\n</text>
-      <text>*</text>
-    </view>
-  </view>
-
+ 
   <!-- 主要内容 -->
-  <view class="content">
-    <view class="name">{{keywords}}</view>
-    <view class="greeting">～新年快乐～</view>
-    <view class="message">{{wishText}}</view>
-  </view>
+  <view class="preview-container">
+    <view class="content">
+      <view class="name">{{keywords}}</view>
+      <view class="greeting">～新年快乐～</view>
+      <view class="message">{{wishText}}</view>
+    </view>
 
-  <!-- 底部装饰 -->
-  <view class="bottom-curve"></view>
+    <view class="bottom-curve"></view>
 
-  <!-- 操作按钮 -->
-  <view class="firework-container">
-    <view class="firework"></view>
-  </view>
-  <view class="share-buttons">
-    <block wx:if="{{!hasUserInfo}}">
-      <button class="share-button" open-type="getPhoneNumber" bindgetphonenumber="getUserProfile">点击授权</button>
-    </block>
-    <block wx:else>
-      <button class="share-button" open-type="share">分享给他</button>
-    </block>
+    <!-- 烟花效果 -->
+    <view class="firework-container">
+      <view class="firework"></view>
+    </view>
+
+    <!-- 操作按钮 -->
+    <view class="share-buttons">
+      <block wx:if="{{!hasUserInfo}}">
+        <button class="share-button" open-type="getPhoneNumber" bindgetphonenumber="getUserProfile">点击授权</button>
+      </block>
+      <block wx:else>
+        <button class="share-button" open-type="share">分享给他</button>
+      </block>
+    </view>
   </view>
 </view>
